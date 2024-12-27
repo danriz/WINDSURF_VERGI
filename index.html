@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vergi Hesaplama</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="styles.css" rel="stylesheet">
+</head>
+<body>
+    <div class="container mt-5">
+        <h1 class="mb-4">Vergi Hesaplama</h1>
+        
+        <div class="card mb-4">
+            <div class="card-header">
+                <div class="form-check">
+                    <input class="form-check-input" type="checkbox" id="yurticiTemettuCheck">
+                    <label class="form-check-label" for="yurticiTemettuCheck">
+                        Yurt İçi Temettü
+                    </label>
+                </div>
+            </div>
+            <div class="card-body" id="yurticiTemettuForm" style="display: none;">
+                <div class="row">
+                    <div class="col-md-8">
+                        <div class="row mb-3">
+                            <div class="col-md-6">
+                                <label class="form-label">Hesabınıza Yatan Net Temettü Toplamı (TL)</label>
+                                <input type="number" class="form-control" id="netTemettu" step="0.01">
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label">Geçerli Stopaj Oranı (%)</label>
+                                <input type="number" class="form-control" id="stopajOrani" step="0.01">
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-4">
+                                <div class="result-box">
+                                    <label>Brüt Temettü (TL)</label>
+                                    <div id="brutTemettu" class="result">0.00</div>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="result-box">
+                                    <label>Stopaj Miktarı (TL)</label>
+                                    <div id="stopajMiktari" class="result">0.00</div>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="result-box">
+                                    <label>Vergiye Tabi Kısım (TL)</label>
+                                    <div id="vergiyeTabiKisim" class="result">0.00</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row mt-3">
+                            <div class="col-md-4">
+                                <div class="result-box">
+                                    <label>Karşılık Oran (%)</label>
+                                    <div id="karsilikOran" class="result">0.00</div>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="result-box">
+                                    <label>Alttan Gelen Vergi (TL)</label>
+                                    <div id="alttanGelenVergi" class="result">0.00</div>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="result-box">
+                                    <label>Oransal Vergi (TL)</label>
+                                    <div id="oransalVergi" class="result">0.00</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row mt-3">
+                            <div class="col-md-6">
+                                <div class="result-box">
+                                    <label>Stopaj Mahsuplaşması Öncesi Vergi (TL)</label>
+                                    <div id="mahsuplasmadanOnceVergi" class="result">0.00</div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="result-box">
+                                    <label>Ödenecek Vergi (TL)</label>
+                                    <div id="odenecekVergi" class="result">0.00</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="card h-100">
+                            <div class="card-header d-flex justify-content-between align-items-center">
+                                <h5 class="mb-0">2024 Gelir Vergisi Dilimleri</h5>
+                                <button type="button" class="btn btn-sm btn-outline-primary" id="saveVergiDilimleri">Kaydet</button>
+                            </div>
+                            <div class="card-body p-0">
+                                <div class="table-responsive">
+                                    <table class="table table-sm table-bordered mb-0" id="vergiDilimleriTable">
+                                        <thead class="table-light">
+                                            <tr>
+                                                <th>Alt Sınır (TL)</th>
+                                                <th>Üst Sınır (TL)</th>
+                                                <th>Oran (%)</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <td><input type="number" class="form-control form-control-sm" value="0" step="1"></td>
+                                                <td><input type="number" class="form-control form-control-sm" value="110000" step="1"></td>
+                                                <td><input type="number" class="form-control form-control-sm" value="0" step="1"></td>
+                                            </tr>
+                                            <tr>
+                                                <td><input type="number" class="form-control form-control-sm" value="110001" step="1"></td>
+                                                <td><input type="number" class="form-control form-control-sm" value="230000" step="1"></td>
+                                                <td><input type="number" class="form-control form-control-sm" value="20" step="1"></td>
+                                            </tr>
+                                            <tr>
+                                                <td><input type="number" class="form-control form-control-sm" value="230001" step="1"></td>
+                                                <td><input type="number" class="form-control form-control-sm" value="800000" step="1"></td>
+                                                <td><input type="number" class="form-control form-control-sm" value="27" step="1"></td>
+                                            </tr>
+                                            <tr>
+                                                <td><input type="number" class="form-control form-control-sm" value="800001" step="1"></td>
+                                                <td><input type="number" class="form-control form-control-sm" value="3000000" step="1"></td>
+                                                <td><input type="number" class="form-control form-control-sm" value="35" step="1"></td>
+                                            </tr>
+                                            <tr>
+                                                <td><input type="number" class="form-control form-control-sm" value="3000001" step="1"></td>
+                                                <td><input type="number" class="form-control form-control-sm" value="999999999" step="1"></td>
+                                                <td><input type="number" class="form-control form-control-sm" value="40" step="1"></td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="card mb-4">
+            <div class="card-header">
+                <div class="form-check">
+                    <input class="form-check-input" type="checkbox" id="yurtdisiTemettuCheck">
+                    <label class="form-check-label" for="yurtdisiTemettuCheck">
+                        Yurt Dışı Temettü
+                    </label>
+                </div>
+            </div>
+            <div class="card-body" id="yurtdisiTemettuForm" style="display: none;">
+                <div class="table-responsive">
+                    <table class="table table-sm" id="yurtdisiTemettuTable">
+                        <thead>
+                            <tr>
+                                <th>Temettü Tarihi</th>
+                                <th>Brüt Miktar</th>
+                                <th>Döviz Cinsi</th>
+                                <th>Vergi Yüzdesi (%)</th>
+                                <th>TCMB Kuru (TL)</th>
+                                <th>TL Karşılığı</th>
+                                <th>Yabancı Ülke Vergisi (TL)</th>
+                                <th>İşlem</th>
+                            </tr>
+                        </thead>
+                        <tbody id="temettuTableBody">
+                            <tr id="row_1">
+                                <td><input type="date" class="form-control form-control-sm" id="temettuTarihi_1"></td>
+                                <td><input type="number" class="form-control form-control-sm" step="0.01" id="brutMiktar_1"></td>
+                                <td>
+                                    <select class="form-select form-select-sm" id="dovizCinsi_1">
+                                        <option value="USD">USD</option>
+                                        <option value="EUR">EUR</option>
+                                        <option value="GBP">GBP</option>
+                                    </select>
+                                </td>
+                                <td><input type="number" class="form-control form-control-sm" step="0.01" id="vergiYuzdesi_1"></td>
+                                <td><input type="number" class="form-control form-control-sm" step="0.0001" id="tcmbKuru_1" readonly></td>
+                                <td><input type="number" class="form-control form-control-sm" step="0.01" id="tlKarsiligi_1" readonly></td>
+                                <td><input type="number" class="form-control form-control-sm" step="0.01" id="yabanciVergi_1" readonly></td>
+                                <td>
+                                    <button type="button" class="btn btn-danger btn-sm" onclick="satirSil(1)">Sil</button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <div class="row mt-3">
+                        <div class="col-md-6">
+                            <div class="card">
+                                <div class="card-body">
+                                    <div class="row">
+                                        <div class="col-md-8">
+                                            <h6 class="mb-0">TL Karşılığı Toplamı:</h6>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <span id="tlKarsiligiToplam" class="fw-bold">0.00</span> TL
+                                        </div>
+                                    </div>
+                                    <div class="row mt-2">
+                                        <div class="col-md-8">
+                                            <h6 class="mb-0">Yabancı Ülke Vergisi Toplamı:</h6>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <span id="yabanciVergiToplam" class="fw-bold">0.00</span> TL
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="text-end mt-2">
+                        <button type="button" class="btn btn-success" onclick="window.satirEkle()">Satır Ekle</button>
+                    </div>
+                    <div class="row mt-4">
+                        <div class="col-md-8">
+                            <div class="card">
+                                <div class="card-header">
+                                    <h5 class="mb-0">2024 Gelir Vergisi Dilimleri</h5>
+                                </div>
+                                <div class="card-body">
+                                    <div class="table-responsive">
+                                        <table class="table table-bordered table-striped">
+                                            <thead class="table-light">
+                                                <tr>
+                                                    <th>Gelir Dilimi</th>
+                                                    <th>Vergi Oranı</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr>
+                                                    <td>70.000 TL'ye kadar</td>
+                                                    <td>%15</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>150.000 TL'nin 70.000 TL'si için 10.500 TL, fazlası</td>
+                                                    <td>%20</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>370.000 TL'nin 150.000 TL'si için 26.500 TL, fazlası</td>
+                                                    <td>%27</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>1.900.000 TL'nin 370.000 TL'si için 85.900 TL, fazlası</td>
+                                                    <td>%35</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>1.900.000 TL'den fazlasının 1.900.000 TL'si için 623.900 TL, fazlası</td>
+                                                    <td>%40</td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>

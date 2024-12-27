@@ -1,0 +1,47 @@
+.result-box {
+    background-color: #f8f9fa;
+    padding: 15px;
+    border-radius: 5px;
+    margin-bottom: 15px;
+}
+
+.result-box label {
+    display: block;
+    margin-bottom: 5px;
+    color: #666;
+    font-size: 0.9rem;
+}
+
+.result {
+    font-size: 1.2rem;
+    font-weight: bold;
+    color: #28a745;
+}
+
+.card {
+    box-shadow: 0 0 10px rgba(0,0,0,0.1);
+}
+
+.form-check-input:checked {
+    background-color: #28a745;
+    border-color: #28a745;
+}
+
+input[type="number"] {
+    text-align: right;
+}
+
+.table-sm td, .table-sm th {
+    padding: 0.5rem;
+    font-size: 0.875rem;
+}
+
+.table-bordered {
+    border: 1px solid #dee2e6;
+}
+
+.card-header h5 {
+    font-size: 1rem;
+    font-weight: 600;
+    color: #495057;
+}
